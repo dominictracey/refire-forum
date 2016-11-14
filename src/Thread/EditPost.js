@@ -5,6 +5,8 @@ import { FirebaseWrite, styles } from 'refire-app'
 import { replaceEmojis, quote } from '../utils'
 import { replyToThread, savePost } from '../updates'
 import PreviewButton from '../App/PreviewButton'
+import EmojiButton from './EmojiButton'
+import EmojiDialog from './EmojiDialog'
 import PreviewFields from './PreviewFields'
 import TextFields from './TextFields'
 
@@ -16,6 +18,7 @@ class EditPost extends Component {
       text: "",
       previewEnabled: false,
       editText: props.editText,
+      emojiDialogVisible: props.emojiDialogVisible,
     }
   }
 
@@ -83,13 +86,27 @@ class EditPost extends Component {
   }
 
   render() {
-    const { user, locked, theme, buttonCaption, showEdit, cancelable } = this.props
+    const {
+        user,
+        locked,
+        theme,
+        buttonCaption,
+        showEdit,
+        cancelable,
+        hideDialog,
+        showDialog,
+    } = this.props
     const submitEnabled = !!this.state.text
 
     if (!user || locked || !showEdit) return <div />
     return (
       <div className='editPostContainer'>
         <Form>
+          <EmojiDialog
+            visible={this.state.emojiDialogVisible}
+            hide={hideDialog}
+            styles={theme.EmojiDialog}
+        />
           <TextFields
             preview={this.state.previewEnabled}
             text={this.state.text}
@@ -119,6 +136,9 @@ class EditPost extends Component {
           <PreviewButton
             enabled={this.state.previewEnabled}
             togglePreview={this.togglePreview}
+          />
+          <EmojiButton
+            emojiClick = {showDialog}
           />
         </Form>
       </div>

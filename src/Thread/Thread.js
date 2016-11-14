@@ -31,6 +31,7 @@ class Thread extends Component {
         deleteDialogVisible,
         deletePostDialogVisible,
         lockDialogVisible,
+        emojiDialogVisible,
         postKey,
         quote,
       },
@@ -41,10 +42,12 @@ class Thread extends Component {
         hideDeleteDialog,
         hideDeletePostDialog,
         hideLockDialog,
+        hideEmojiDialog,
         selectLastPage,
         showDeleteDialog,
         showDeletePostDialog,
         showLockDialog,
+        showEmojiDialog,
         toggleLocked,
         updateQuote,
         toggleUpvote,
@@ -123,6 +126,9 @@ class Thread extends Component {
             locked={thread.locked}
             isAdmin={isAdmin}
             theme={theme}
+            emojiDialogVisible={emojiDialogVisible}
+            showDialog={showEmojiDialog}
+            hideDialog={hideEmojiDialog}
           />
           <div className={styles.paginationContainer}>
             <ShowPagination
