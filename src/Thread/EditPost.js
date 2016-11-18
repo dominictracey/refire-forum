@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
-import { Button, Form } from 'elemental'
-import { FirebaseWrite, styles } from 'refire-app'
+import React, {Component} from 'react'
+import {Button, Form} from 'elemental'
+import {FirebaseWrite, styles} from 'refire-app'
 //import PlusIcon from 'react-icons/lib/fa/plus'
-import { replaceEmojis, quote } from '../utils'
-import { replyToThread, savePost } from '../updates'
+import {replaceEmojis, quote} from '../utils'
+import {replyToThread, savePost} from '../updates'
 import PreviewButton from '../App/PreviewButton'
 import EmojiButton from './EmojiButton'
 import EmojiDialog from './EmojiDialog'
@@ -18,7 +18,6 @@ class EditPost extends Component {
       text: "",
       previewEnabled: false,
       editText: props.editText,
-      emojiDialogVisible: props.emojiDialogVisible,
     }
   }
 
@@ -41,7 +40,7 @@ class EditPost extends Component {
 
   submit = (event) => {
     event.preventDefault()
-    const { user, threadKey, selectLastPage, submit, replyToKey, editing, postKey, post, setShowEdit } = this.props
+    const {user, threadKey, selectLastPage, submit, replyToKey, editing, postKey, post, setShowEdit} = this.props
 
     if (editing) {
       const update = savePost({
@@ -62,7 +61,7 @@ class EditPost extends Component {
       submit(update)
       selectLastPage()
     }
-    this.setState({ text: "" })
+    this.setState({text: ""})
   }
 
   cancel = (event) => {
@@ -73,12 +72,12 @@ class EditPost extends Component {
   updateField = (field) => {
     return (event) => {
       event.preventDefault()
-      this.setState({ [field]: replaceEmojis(event.target.value) })
+      this.setState({[field]: replaceEmojis(event.target.value)})
     }
   }
 
   togglePreview = () => {
-    this.setState({ previewEnabled: !this.state.previewEnabled })
+    this.setState({previewEnabled: !this.state.previewEnabled})
   }
 
   textInputRef = (input) => {
@@ -87,26 +86,21 @@ class EditPost extends Component {
 
   render() {
     const {
-        user,
-        locked,
-        theme,
-        buttonCaption,
-        showEdit,
-        cancelable,
-        hideDialog,
-        showDialog,
+      user,
+      locked,
+      theme,
+      buttonCaption,
+      showEdit,
+      cancelable,
+      showEmojiDialog,
     } = this.props
     const submitEnabled = !!this.state.text
 
     if (!user || locked || !showEdit) return <div />
     return (
       <div className='editPostContainer'>
+
         <Form>
-          <EmojiDialog
-            visible={this.state.emojiDialogVisible}
-            hide={hideDialog}
-            styles={theme.EmojiDialog}
-        />
           <TextFields
             preview={this.state.previewEnabled}
             text={this.state.text}
@@ -127,20 +121,21 @@ class EditPost extends Component {
             {buttonCaption}
           </Button>
           {cancelable ?
-          <Button
-            onClick={this.cancel}
-            hidden={true}
-          >
-            Cancel
-          </Button> : null}
+            <Button
+              onClick={this.cancel}
+              hidden={true}
+            >
+              Cancel
+            </Button> : null}
           <PreviewButton
             enabled={this.state.previewEnabled}
             togglePreview={this.togglePreview}
           />
           <EmojiButton
-            emojiClick = {showDialog}
+            showEmojiDialog={showEmojiDialog}
           />
         </Form>
+
       </div>
     )
   }
@@ -159,5 +154,5 @@ const css = {
 
 export default styles(
   css,
-  FirebaseWrite({ method: "update" })(EditPost)
+  FirebaseWrite({method: "update"})(EditPost)
 )

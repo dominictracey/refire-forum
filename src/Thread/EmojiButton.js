@@ -5,12 +5,13 @@ import React from 'react'
 import { styles } from 'refire-app'
 import { Button } from 'elemental'
 
-const EmojiButton = ({ styles }) => {
+const EmojiButton = ({ showEmojiDialog, styles }) => {
+  event.preventDefault()
 	return (
 		<button
 		size="small"
 		className= {styles.button}
-		onClick={() => emojiClick()}
+		onClick={() => showEmojiDialog()}
 		>
 			<span className={styles.iconContainer}>
 				Emojis

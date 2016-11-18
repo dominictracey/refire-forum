@@ -19,7 +19,6 @@ class Post extends Component {
     super(props, context)
     this.state = {
       showEdit: false,
-      emojiDialogVisible: props.emojiDialogVisible,
     }
   }
 
@@ -40,8 +39,8 @@ class Post extends Component {
       updateQuote,
       toggleUpvote,
       selectLastPage,
-      showDialog,
-      hideDialog,
+      showEmojiDialog,
+      emojiDialogVis,
       threadKey,
       styles,
       theme,
@@ -106,9 +105,7 @@ class Post extends Component {
             cancel={this.cancelEditPost}
             showEdit={this.state.showEdit}
             setShowEdit={this.setShowEdit}
-            emojiDialogVisible={this.state.emojiDialogVisible}
-            showDialog={showDialog}
-            hideDialog={hideDialog}
+            showEmojiDialog={showEmojiDialog}
             editText={post.body}
             cancelable={true}
             editing={true}

@@ -14,9 +14,7 @@ const Posts = ({
   selectLastPage,
   styles,
   theme,
-  emojiDialogVisible,
-  showDialog,
-  hideDialog,
+  showEmojiDialog,
 }) => {
   if (!posts.length) {
     return (
@@ -43,9 +41,7 @@ const Posts = ({
                 selectLastPage={selectLastPage}
                 styles={theme.Post}
                 theme={theme}
-                emojiDialogVisible={emojiDialogVisible}
-                showDialog={showDialog}
-                hideDialog={hideDialog}
+                showEmojiDialog={showEmojiDialog}
               />
             )
           })
