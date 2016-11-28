@@ -1,27 +1,12 @@
 import { firebase } from 'refire-app'
 import includes from 'lodash/includes'
 
-export function newThread({ boardId, topic, text, user }) {
+export function newThread({ boardId, link, imageUrl, title, description, text, user }) {
   const ref = firebase.database().ref()
   const threadKey = ref.child("threads").push().key
   const postKey = ref.child("posts").push().key
-
-  return {
+  let retval = {
     [`boards/${boardId}/threads/${threadKey}`]: true,
-    [`threads/${threadKey}`]: {
-      title: topic,
-      boardId: boardId,
-      createdAt: firebase.database.ServerValue.TIMESTAMP,
-      lastPostAt: firebase.database.ServerValue.TIMESTAMP,
-      user: {
-        displayName: user.displayName,
-        image: user.profileImageURL,
-        id: user.uid,
-      },
-      posts: {
-        [postKey]: true,
-      },
-    },
     [`posts/${postKey}`]: {
       body: text,
       createdAt: firebase.database.ServerValue.TIMESTAMP,
@@ -35,6 +20,46 @@ export function newThread({ boardId, topic, text, user }) {
     [`users/${user.uid}/threadsStarted/${threadKey}`]: true,
     [`users/${user.uid}/posts/${postKey}`]: true,
   }
+  if (link) {
+    retval[`threads/${threadKey}`] = {
+        title: title,
+        boardId: boardId,
+        createdAt: firebase.database.ServerValue.TIMESTAMP,
+        lastPostAt: firebase.database.ServerValue.TIMESTAMP,
+        user: {
+          displayName: user.displayName,
+          image: user.profileImageURL,
+          id: user.uid,
+        },
+        posts: {
+          [postKey]: true,
+        },
+        link: link,
+    }
+    if (description) {
+      retval[`threads/${threadKey}`].description = description
+    }
+    if (imageUrl) {
+      retval[`threads/${threadKey}`].imageUrl = imageUrl
+    }
+  } else {
+      retval[`threads/${threadKey}`] = {
+          title: title,
+          boardId: boardId,
+          createdAt: firebase.database.ServerValue.TIMESTAMP,
+          lastPostAt: firebase.database.ServerValue.TIMESTAMP,
+          user: {
+            displayName: user.displayName,
+            image: user.profileImageURL,
+            id: user.uid,
+          },
+          posts: {
+            [postKey]: true,
+          },
+        }
+    }
+
+    return retval
 }
 
 export function deleteThread({ threadKey, thread }) {
