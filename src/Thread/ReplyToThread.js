@@ -14,6 +14,7 @@ const ReplyToThread = ({
     selectLastPage,
     styles,
     theme,
+    showEmojiDialog,
   }) => {
 
     if (!user || locked) return <div />
@@ -32,6 +33,7 @@ const ReplyToThread = ({
           selectLastPage={selectLastPage}
           styles={theme.ReplyToThread}
           theme={theme}
+          showEmojiDialog={showEmojiDialog}
         />
       </Card>
     )

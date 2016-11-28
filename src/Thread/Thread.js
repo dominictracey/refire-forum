@@ -14,8 +14,13 @@ import DeletePostDialog from './DeletePostDialog'
 import TopToolbar from './TopToolbar'
 import DeleteButton from './DeleteButton'
 import LockButton from './LockButton'
+import EmojiDialog from './EmojiDialog'
 
 class Thread extends Component {
+  saveThing = () => {
+    console.log("Saved")
+  }
+
 
   render() {
     const {
@@ -33,6 +38,7 @@ class Thread extends Component {
         deleteDialogVisible,
         deletePostDialogVisible,
         lockDialogVisible,
+        emojiDialogVisible,
         postKey,
         quote,
       },
@@ -43,10 +49,12 @@ class Thread extends Component {
         hideDeleteDialog,
         hideDeletePostDialog,
         hideLockDialog,
+        hideEmojiDialog,
         selectLastPage,
         showDeleteDialog,
         showDeletePostDialog,
         showLockDialog,
+        showEmojiDialog,
         toggleLocked,
         updateQuote,
         toggleUpvote,
@@ -114,6 +122,12 @@ class Thread extends Component {
           save={deletePost}
           styles={theme.DeletePostDialog}
         />
+        <EmojiDialog
+          visible={emojiDialogVisible}
+          hide={hideEmojiDialog}
+          save={this.saveThing}
+          styles={theme.EmojiDialog}
+        />
         <Card className={styles.container}>
           <div className={styles.paginationContainer}>
             <div className={styles.headerContainer}>
@@ -158,6 +172,7 @@ class Thread extends Component {
                   locked={thread.locked}
                   confirmLockedChange={showLockDialog}
                 />
+
               </div>
             </TopToolbar>
           </div>
@@ -171,6 +186,7 @@ class Thread extends Component {
             locked={thread.locked}
             isAdmin={isAdmin}
             theme={theme}
+            showEmojiDialog={showEmojiDialog}
           />
           <div className={styles.paginationContainer}>
             <ShowPagination
@@ -192,6 +208,7 @@ class Thread extends Component {
           selectLastPage={selectLastPage}
           styles={theme.ReplyToThread}
           theme={theme}
+          showEmojiDialog={showEmojiDialog}
         />
       </div>
     )

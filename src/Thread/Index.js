@@ -24,6 +24,7 @@ class Index extends Component {
       editPostVisible: false,
       displayPostVisible: true,
       deletePostKey: null,
+      emojiDialogVisible: false,
     }
   }
 
@@ -80,6 +81,14 @@ class Index extends Component {
     })
   }
 
+  hideEmojiDialog = () => {
+	this.setState({ emojiDialogVisible: false})
+  }
+
+  showEmojiDialog = () => {
+	this.setState({ emojiDialogVisible: true})
+  }
+
   deleteThread = () => {
     const { submit, dispatch } = this.props
     const { key: threadKey, value: thread } = this.props.thread || {}
@@ -133,6 +142,8 @@ class Index extends Component {
       showDeleteDialog: this.showDeleteDialog,
       showLockDialog: this.showLockDialog,
       showDeletePostDialog: this.showDeletePostDialog,
+      showEmojiDialog: this.showEmojiDialog,
+      hideEmojiDialog: this.hideEmojiDialog,
       updateQuote: this.updateQuote,
       toggleUpvote: this.toggleUpvote,
       selectLastPage: this.selectLastPage,

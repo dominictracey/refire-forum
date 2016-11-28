@@ -39,6 +39,8 @@ class Post extends Component {
       updateQuote,
       toggleUpvote,
       selectLastPage,
+      showEmojiDialog,
+      emojiDialogVis,
       threadKey,
       styles,
       theme,
@@ -103,6 +105,7 @@ class Post extends Component {
             cancel={this.cancelEditPost}
             showEdit={this.state.showEdit}
             setShowEdit={this.setShowEdit}
+            showEmojiDialog={showEmojiDialog}
             editText={post.body}
             cancelable={true}
             editing={true}

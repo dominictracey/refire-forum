@@ -218,5 +218,8 @@ export default {
     LockDialog: {
       ...dialogStyles,
     },
+    EmojiDialog: {
+      ...dialogStyles,
+	},
   },
 }
